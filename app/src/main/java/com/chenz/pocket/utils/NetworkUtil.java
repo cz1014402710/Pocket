@@ -61,7 +61,7 @@ public class NetworkUtil {
     }
 
     /**
-     * 检测3G是否连接
+     * 检测移动流量连接
      */
     @SuppressLint("ObsoleteSdkInt")
     public static boolean isMobileConnected(Context context) {

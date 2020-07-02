@@ -2,6 +2,8 @@ package com.chenz.pocket;
 
 import android.os.Bundle;
 
+import com.chenz.pocket.base.BaseActivity;
+import com.chenz.pocket.base.DataBindingConfig;
 import com.chenz.pocket.ui.main.PageViewModel;
 import com.chenz.pocket.ui.main.TabInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,22 +24,29 @@ import android.view.View;
 
 import com.chenz.pocket.ui.main.SectionsPagerAdapter;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_3, R.string.tab_text_3};
+    private static final int[]  TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_3, R.string.tab_text_3};
     @DrawableRes
-    private static final int[] TAB_ICONS = new int[]{R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher};
-    private static final String TAG         = "MainActivity";
-
+    private static final int[]  TAB_ICONS  = new int[]{R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher};
 
     private PageViewModel mPageViewModel;
+
+    @Override
+    protected void initViewModel() {
+        mPageViewModel = getActivityViewModel(PageViewModel.class);
+    }
+
+    @Override
+    protected DataBindingConfig getDataBindingConfig() {
+        return new DataBindingConfig(R.layout.activity_main, mPageViewModel);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mPageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         final SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
         ViewPager viewPager = findViewById(R.id.view_pager);
         viewPager.setAdapter(sectionsPagerAdapter);
