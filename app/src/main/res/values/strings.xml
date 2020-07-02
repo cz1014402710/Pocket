@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">My Application</string>
+    <string name="tab_text_1">Tab 1</string>
+    <string name="tab_text_2">Tab 2</string>
+    <string name="tab_text_3">Tab 3</string>
+    <string name="tab_text_4">Tab 4</string>
+    <string name="tab_text_5">Tab 5</string>
+
+    <string name="base_exception_title">程序出问题了</string>
+    <string name="base_exception_content"><![CDATA[非常抱歉，程序出问题了，将自动关闭...]]></string>
+    <string name="base_exception_btn">我知道了</string>
+</resources>
