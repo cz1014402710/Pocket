@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.chenz.pocket.base.BaseActivity;
 import com.chenz.pocket.base.DataBindingConfig;
+import com.chenz.pocket.databinding.ActivityMainBinding;
 import com.chenz.pocket.ui.main.PageViewModel;
 import com.chenz.pocket.ui.main.TabInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -27,11 +28,12 @@ import com.chenz.pocket.ui.main.SectionsPagerAdapter;
 public class MainActivity extends BaseActivity {
 
     @StringRes
-    private static final int[]  TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_3, R.string.tab_text_3};
+    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_3, R.string.tab_text_3};
     @DrawableRes
-    private static final int[]  TAB_ICONS  = new int[]{R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher};
+    private static final int[] TAB_ICONS  = new int[]{R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher};
 
-    private PageViewModel mPageViewModel;
+    private PageViewModel        mPageViewModel;
+    private SectionsPagerAdapter mAdapter;
 
     @Override
     protected void initViewModel() {
@@ -40,25 +42,23 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected DataBindingConfig getDataBindingConfig() {
-        return new DataBindingConfig(R.layout.activity_main, mPageViewModel);
+        mAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
+        return new DataBindingConfig(R.layout.activity_main, mPageViewModel)
+                .addBindingParam(BR.adapter, mAdapter);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        final SectionsPagerAdapter sectionsPagerAdapter = new SectionsPagerAdapter(this, getSupportFragmentManager());
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        viewPager.setAdapter(sectionsPagerAdapter);
-        TabLayout tabs = findViewById(R.id.tabs);
-        tabs.setSelectedTabIndicatorHeight(0);
-        tabs.setupWithViewPager(viewPager);
+        ActivityMainBinding binding = (ActivityMainBinding) mBinding;
+        binding.tabs.setSelectedTabIndicatorHeight(0);
+        binding.tabs.setupWithViewPager(binding.viewPager);
         mPageViewModel.getTabs().observe(this, tabInfo -> {
-            sectionsPagerAdapter.setTabInfo(tabInfo);
-            for (int i = 0; i < tabs.getTabCount(); i++) {
-                TabLayout.Tab tab = tabs.getTabAt(i);
+            mAdapter.setTabInfo(tabInfo);
+            for (int i = 0; i < binding.tabs.getTabCount(); i++) {
+                TabLayout.Tab tab = binding.tabs.getTabAt(i);
                 if (tab != null) {
-                    tab.setCustomView(sectionsPagerAdapter.getTabView(i));
+                    tab.setCustomView(mAdapter.getTabView(i));
                 }
             }
         });

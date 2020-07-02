@@ -26,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     protected String TAG = getClass().getSimpleName();
 
     private SharedViewModel   mSharedViewModel;
-    private ViewDataBinding   mBinding;
+    protected ViewDataBinding   mBinding;
     private ViewModelProvider mActivityProvider;
 
     protected abstract void initViewModel();

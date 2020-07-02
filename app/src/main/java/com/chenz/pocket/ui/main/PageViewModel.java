@@ -19,6 +19,8 @@ public class PageViewModel extends ViewModel {
 
     public LiveData<TabInfo> getTabs() {
 
+
+
         return mTabs;
     }
 
