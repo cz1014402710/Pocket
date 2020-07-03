@@ -40,6 +40,9 @@ public interface APIService {
 
 
     @GET("barcode/goods/details")
-    Call<GoodsBean> getGoodsDetail(@Query("barcode") String paramString);
+    Call<GoodsBean> getGoodsDetail(@Query("barcode") String paramString,@Query("app_id") String appId,@Query("app_secret") String appSecret);
+
+    @GET("barcode/goods/details")
+    Call<GoodsBean> getGoodsDetailOld(@Query("barcode") String paramString);
 
 }

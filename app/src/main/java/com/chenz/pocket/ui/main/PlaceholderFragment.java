@@ -7,17 +7,22 @@ import android.view.ViewGroup;
 
 import com.chenz.pocket.BR;
 import com.chenz.pocket.R;
+import com.chenz.pocket.base.BaseFragment;
+import com.chenz.pocket.base.DataBindingConfig;
+import com.chenz.pocket.bean.GoodsBean;
 import com.chenz.pocket.databinding.FragmentMainBinding;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 /**
  * A placeholder fragment containing a simple view.
  */
-public class PlaceholderFragment extends Fragment {
+public class PlaceholderFragment extends BaseFragment {
 
     private static final String ARG_SECTION_NUMBER = "section_number";
 
@@ -32,9 +37,20 @@ public class PlaceholderFragment extends Fragment {
     }
 
     @Override
+    protected void initViewModel() {
+        pageViewModel = getFragmentViewModel(PageViewModel.class);
+    }
+
+    @Override
+    protected DataBindingConfig getDataBindingConfig() {
+        return new DataBindingConfig(R.layout.fragment_main,pageViewModel)
+                .addBindingParam(BR.vm, pageViewModel)
+                .addBindingParam(BR.activity, getActivity());
+    }
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        pageViewModel = ViewModelProviders.of(this).get(PageViewModel.class);
         int index = 1;
         if (getArguments() != null) {
             index = getArguments().getInt(ARG_SECTION_NUMBER);
@@ -43,13 +59,12 @@ public class PlaceholderFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(
-            @NonNull LayoutInflater inflater, ViewGroup container,
-            Bundle savedInstanceState) {
-        FragmentMainBinding binding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_main, container, false);
-        binding.setLifecycleOwner(this);
-        binding.setVariable(BR.vm, pageViewModel);
-        binding.setVariable(BR.activity, getActivity());
-        return binding.getRoot();
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        FragmentMainBinding binding = (FragmentMainBinding) mBinding;
+        binding.button.setOnClickListener(v -> pageViewModel.getGoodsDetail("6902538005141"));
+
+        pageViewModel.getGoodsBean().observe(getActivity(), goodsBean -> binding.text.setText(goodsBean.toString()));
+
     }
 }

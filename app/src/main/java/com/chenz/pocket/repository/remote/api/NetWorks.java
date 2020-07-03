@@ -23,7 +23,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 /**
  * Created by chenz on 2017/3/30.
  */
-public class NetWork {
+public class NetWorks {
 
     private static final int DEFAULT_TIMEOUT = 5;
 
@@ -31,11 +31,11 @@ public class NetWork {
 
     private static APIService mAPIService;
 
-    private static NetWork mNetworks;
+    private static NetWorks mNetworks;
 
-    public static NetWork getInstance() {
+    public static NetWorks getInstance() {
         if (mNetworks == null) {
-            mNetworks = new NetWork();
+            mNetworks = new NetWorks();
         }
         return mNetworks;
     }

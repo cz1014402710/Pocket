@@ -32,7 +32,7 @@ public abstract class BaseFragment extends Fragment {
     private              SharedViewModel   mSharedViewModel;
     private              ViewModelProvider mActivityProvider;
     private              ViewModelProvider mFragmentProvider;
-    private              ViewDataBinding   mBinding;
+    protected               ViewDataBinding mBinding;
 
     protected abstract void initViewModel();
 
