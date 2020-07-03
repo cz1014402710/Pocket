@@ -1,5 +1,7 @@
 package com.chenz.pocket.ui.main;
 
+import com.chenz.pocket.repository.DataRepository;
+
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Transformations;
@@ -19,9 +21,11 @@ public class PageViewModel extends ViewModel {
 
     public LiveData<TabInfo> getTabs() {
 
-
-
         return mTabs;
+    }
+
+    public void initTabInfo() {
+        DataRepository.getInstance().getTabInfo(mTabs);
     }
 
     public void setIndex(int index) {

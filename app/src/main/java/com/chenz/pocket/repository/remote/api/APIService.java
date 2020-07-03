@@ -1,4 +1,4 @@
-package com.chenz.pocket.api;
+package com.chenz.pocket.repository.remote.api;
 
 import com.chenz.pocket.bean.GoodsBean;
 

@@ -27,11 +27,6 @@ import com.chenz.pocket.ui.main.SectionsPagerAdapter;
 
 public class MainActivity extends BaseActivity {
 
-    @StringRes
-    private static final int[] TAB_TITLES = new int[]{R.string.tab_text_1, R.string.tab_text_2, R.string.tab_text_3, R.string.tab_text_3, R.string.tab_text_3};
-    @DrawableRes
-    private static final int[] TAB_ICONS  = new int[]{R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher};
-
     private PageViewModel        mPageViewModel;
     private SectionsPagerAdapter mAdapter;
 
@@ -62,10 +57,7 @@ public class MainActivity extends BaseActivity {
                 }
             }
         });
-        TabInfo tabInfo = new TabInfo();
-        tabInfo.setTabIcons(TAB_ICONS);
-        tabInfo.setTabTitles(TAB_TITLES);
-        mPageViewModel.setTabs(tabInfo);
+        mPageViewModel.initTabInfo();
 
     }
 }

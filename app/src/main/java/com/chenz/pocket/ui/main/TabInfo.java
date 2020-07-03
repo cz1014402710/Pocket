@@ -27,6 +27,14 @@ public class TabInfo {
         mTabIcons = tabIcons;
     }
 
+    public TabInfo(int[] tabTitles, int[] tabIcons) {
+        mTabTitles = tabTitles;
+        mTabIcons = tabIcons;
+    }
+
+    public TabInfo() {
+    }
+
     public int length() {
         if (mTabTitles == null || mTabIcons == null) {
             return 0;
